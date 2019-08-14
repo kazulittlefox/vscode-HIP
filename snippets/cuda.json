@@ -3,54 +3,54 @@
 		"prefix": "__s",
 		"body": "__syncthreads();\n",
 		"description": "",
-		"scope": "source.cuda-cpp"
+		"scope": "source.hip-cpp"
  	 },
   	"cmal": {
 		"prefix": "cmal",
-		"body": "cudaMalloc((void**)&${1:variable}, ${2:bytes});\n",
+		"body": "hipMalloc((void**)&${1:variable}, ${2:bytes});\n",
 		"description": "",
-		"scope": "source.cuda-cpp"
+		"scope": "source.hip-cpp"
 	},
 	"cmalmng": {
 		"prefix": "cmalmng",
-		"body": "cudaMallocManaged((void**)&${1:variable}, ${2:bytes});\n",
+		"body": "hipMallocManaged((void**)&${1:variable}, ${2:bytes});\n",
 		"description": "",
-		"scope": "source.cuda-cpp"
+		"scope": "source.hip-cpp"
 	},	
 	"cmem": {
 		"prefix": "cmem",
-		"body": "cudaMemcpy(${1:dest}, ${2:src}, ${3:bytes}, cudaMemcpy${4:Host}To${5:Device});\n",
+		"body": "hipMemcpy(${1:dest}, ${2:src}, ${3:bytes}, hipMemcpy${4:Host}To${5:Device});\n",
 		"description": "",
-		"scope": "source.cuda-cpp"
+		"scope": "source.hip-cpp"
 	},
 	"cfree": {
 		"prefix": "cfree",
-		"body": "cudaFree(${1:variable});\n",
+		"body": "hipFree(${1:variable});\n",
 		"description": "",
-		"scope": "source.cuda-cpp"
+		"scope": "source.hip-cpp"
 	},
 	"kerneldef": {
 		"prefix": "kernel",
 		"body": "\n__global__ void ${1:kernel}(${2}) {\n}\n",
 		"description": "",
-		"scope": "source.cuda-cpp"
+		"scope": "source.hip-cpp"
 	},
 	"kernelcall": {
 		"prefix": "kernel",
 		"body": "${1:kernel}<<<${2},${3}>>>(${4});\n",
 		"description": "",
-		"scope": "source.cuda-cpp"
+		"scope": "source.hip-cpp"
 	},
 	"thrusthv": {
 		"prefix": "thursthv",
 		"body": "thrust::host_vector<${1:char}> v$0;",
 		"description": "thrust::host_vector",
-		"scope": "source.cpp, source.cuda-cpp"
+		"scope": "source.cpp, source.hip-cpp"
 	},
 	"thrustdv": {
 		"prefix": "thrustdv",
 		"body": "thrust::device_vector<${1:char}> v$0;",
 		"description": "thrust::device_vector",
-		"scope": "source.cuda-cpp"
+		"scope": "source.hip-cpp"
 	}
 }

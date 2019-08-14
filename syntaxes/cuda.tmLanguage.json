@@ -1,19 +1,19 @@
 {
 	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
-    "name": "CUDA C++",
-	"scopeName": "source.cuda-cpp",
+    "name": "HIP C++",
+	"scopeName": "source.hip-cpp",
 	"patterns": [
         {
             "match": "\\b__(global|device|host|noinline|forceinline|launch_bounds)__\\b",
-            "name": "keyword.function.qualifier.cuda-cpp"
+            "name": "keyword.function.qualifier.hip-cpp"
         },
         {
             "match": "\\b(dim3|char[1-4]|uchar[1-4]|short[1-4]|ushort[1-4]|int[1-4]|uint[1-4]|long[1-4]|ulong[1-4]|longlong[1-4]|ulonglong[1-4]|float[1-4]|double[1-4])\\b",
-            "name": "support.type.cuda-cpp"
+            "name": "support.type.hip-cpp"
         },
         {
-            "match": "\\b(gridDim|blockIdx|blockDim|threadIdx|warpSize)\\b",
-            "name": "variable.language.cuda-cpp"
+            "match": "\\b(hipGridDim_|hipBlockIdx_|hipBlockDim_|hipThreadIdx_|warpSize)\\b",
+            "name": "variable.language.hip-cpp"
         },
         {
             "include": "#block"
@@ -26,7 +26,7 @@
         "kernel_function_call": {
 			"begin": "(?x)\n(?!(?:while|for|do|if|else|switch|catch|enumerate|return|typeid|alignof|alignas|sizeof|[cr]?iterate)\\s*\\()\n(?=\n(?:[A-Za-z_][A-Za-z0-9_]*+|::)++\\s*<<<  # actual name\n|\n(?:(?<=operator)(?:[-*&<>=+!]+|\\(\\)|\\[\\]))\\s*\\(\n)",
 			"end": "(?<=\\))(?!\\w)",
-			"name": "meta.kernel-call.cuda-cpp",
+			"name": "meta.kernel-call.hip-cpp",
 			"patterns": [
 				{
 					"include": "#kernel_function-call-innards"
@@ -36,12 +36,8 @@
         "kernel_function-call-innards": {
 			"patterns": [
                 {
-					"match": "<<<",
-					"name": "punctuation.section.kernel.begin.cuda-cpp"
-				},
-                {
-					"match": ">>>",
-					"name": "punctuation.section.kernel.end.cuda-cpp"
+					"match": "hipLaunchKernel",
+					"name": "punctuation.section.kernel.launch.hip-cpp"
 				},
                 {
 					"include": "#comments"
@@ -62,7 +58,7 @@
 							"name": "entity.name.function.c"
                         },
                         "2": {
-                            "name": "punctuation.section.kernel.begin.cuda-cpp"
+                            "name": "punctuation.section.kernel.begin.hip-cpp"
                         }
 					},
 					"end": "\\)",
@@ -105,24 +101,24 @@
 				}
 			]
         },
-        "libcuda": {
+        "libhip": {
 			"captures": {
 				"1": {
 					"name": "punctuation.whitespace.support.function.leading.c"
 				},
 				"2": {
-					"name": "support.function.cuda-cpp"
+					"name": "support.function.hip-cpp"
 				}
             },
-			"match": "(?x) (\\s*) \\b\n(cuda(?:Malloc|Free|Memcpy|Memset|MallocManaged)|atomic(?:Exch|Add|Sub|Min|Max|Inc|Dec|CAS|And|Xor|Or)|surf(?:CubemapLayeredwrite|CubemapLayeredread|1DLayeredwrite|2DLayeredwrite|1DLayeredread|2DLayeredread|Cubemapwrite|Cubemapread|1Dwrite|2Dwrite|3Dwrite|1Dread|2Dread|3Dread)|tex(?:CubemapLayered|1Dlayered|2Dlayered|2Dgather|1Dfetch|Cubemap|1D|2D|3D)|bassert|clock(64)?)\\b"
+			"match": "(?x) (\\s*) \\b\n(hip(?:Malloc|Free|Memcpy|Memset|MallocManaged)|atomic(?:Exch|Add|Sub|Min|Max|Inc|Dec|CAS|And|Xor|Or)|surf(?:CubemapLayeredwrite|CubemapLayeredread|1DLayeredwrite|2DLayeredwrite|1DLayeredread|2DLayeredread|Cubemapwrite|Cubemapread|1Dwrite|2Dwrite|3Dwrite|1Dread|2Dread|3Dread)|tex(?:CubemapLayered|1Dlayered|2Dlayered|2Dgather|1Dfetch|Cubemap|1D|2D|3D)|bassert|clock(64)?)\\b"
         },
-        "libcuda__": {
+        "libhip__": {
 			"captures": {
 				"1": {
 					"name": "punctuation.whitespace.support.function.leading.c"
 				},
 				"2": {
-					"name": "support.function.cuda-cpp"
+					"name": "support.function.hip-cpp"
 				}
             },
 			"match": "(?x) (\\s*) \\b\n(__(?:(dsqrt|dadd|dsub|dmul|ddiv|drcp|fma)_(rn|rz|ru|rd)|((fsqrt|frcp|fadd|fsub|fmul|fmaf|fdiv)_(rn|rz|ru|rd)|frsqrt_rn)|(fdividef|sincosf|log10f|exp10f|log2f|logf|expf|powf|sinf|cosf|tanf)|prof_trigger|shfl(?:|_down|_xor|_up)|(ballot|all|any)|ldg|syncthreads(?:|_count|_and|_or)|threadfence(?:|_system|_block)))\\b"
@@ -183,14 +179,14 @@
 					"include": "#libc"
                 },
                 {
-                    "include": "#libcuda"
+                    "include": "#libhip_hcc"
                 },
                 {
                     "include": "#libcuda__"
 				},
 				{
 					"match": "\\b__(device|constant|managed|shared|restrict)__\\b",
-					"name": "storage.modifier.cuda-cpp"
+					"name": "storage.modifier.hip-cpp"
 				},
                 {
 					"include": "#kernel_function_call"
@@ -481,7 +477,7 @@
 							"include": "#libc"
                         },
                         {
-							"include": "#libcuda"
+							"include": "#libhip_hcc"
                         },
                         {
                             "include": "#libcuda__"
@@ -1579,7 +1575,7 @@
 					"include": "#libc"
                 },
                 {
-					"include": "#libcuda"
+					"include": "#libhip_hcc"
                 },
                 {
                     "include": "#libcuda__"
