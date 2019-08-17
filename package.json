@@ -8,7 +8,7 @@
     "icon": "images/hipIcon.png",
     "description": "HIP C++ language support for Visual Studio Code",
     "version": "0.1.1",
-    "publisher": "kriegalex",
+    "publisher": "kazulittleFox",
     "engines": {
         "vscode": "^1.18.0"
     },
@@ -18,7 +18,7 @@
     ],
     "repository": {
         "type": "git",
-        "url": "https://github.com/kriegalex/vscode-cuda.git"
+        "url": "https://github.com/kazulittlefox/vscode-cuda.git"
     },
     "contributes": {
         "languages": [{
